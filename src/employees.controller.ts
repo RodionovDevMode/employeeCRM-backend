@@ -25,9 +25,7 @@ export class EmployeesController {
 
   @Get(':id')
   getOne(@Param('id') id: string): Employee {
-    const employee = this.employeesService
-      .findAll()
-      .find((e) => e.id === parseInt(id, 10));
+    const employee = this.employeesService.findAll().find((e) => e.id === id);
     if (!employee) {
       throw new NotFoundException(`Employee with id ${id} not found`);
     }

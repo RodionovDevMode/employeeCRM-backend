@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { v4 as uuidv4 } from 'uuid';
 
 export type Employee = {
-  id: number;
+  id: string;
   name: string;
-  position: string;
+  salary: number;
+  increase: boolean;
+  rise: boolean;
 };
 
 @Injectable()
 export class EmployeesService {
   private employees: Employee[] = [
-    { id: 1, name: 'Андрей', position: 'Developer' },
-    { id: 2, name: 'Валентина', position: 'Designer' },
+    {
+      id: uuidv4(),
+      name: 'Андрей Родионов',
+      salary: 3000,
+      increase: false,
+      rise: true,
+    },
   ];
 
   findAll(): Employee[] {
     return this.employees;
   }
 
-  create(employee: Omit<Employee, 'id'>): Employee {
+  create(data: Omit<Employee, 'id'>): Employee {
     const newEmployee: Employee = {
-      id: this.employees.length + 1,
-      ...employee,
+      id: uuidv4(),
+      ...data,
     };
     this.employees.push(newEmployee);
     return newEmployee;
